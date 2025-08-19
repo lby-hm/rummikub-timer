@@ -42,7 +42,7 @@ function PlayerConfig({ player, onChange, onDelete }: PlayerConfigProps) {
 
   return (
     <>
-      <ListItemButton>
+      <ListItemButton sx={{ flexGrow: 0 }} dense>
         <IconButton onClick={onDelete}>
           <RemoveCircleOutlineIcon />
         </IconButton>
