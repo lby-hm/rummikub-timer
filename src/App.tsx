@@ -21,9 +21,9 @@ function App() {
     TotalTime: 30,
     TurnTime: 1,
     Players: [
-      { Id: 1, Name: "玩家 1", Color: "red" },
-      { Id: 2, Name: "玩家 2", Color: "blue" },
-      { Id: 3, Name: "玩家 3", Color: "green" },
+      { Id: 1, Name: "爸爸", Color: "red" },
+      { Id: 2, Name: "妈妈", Color: "blue" },
+      { Id: 3, Name: "甜甜", Color: "green" },
     ],
   });
 

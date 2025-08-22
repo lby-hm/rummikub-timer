@@ -49,11 +49,12 @@ function PlayerConfig({ player, onChange, onDelete }: PlayerConfigProps) {
       </ListItemButton>
       <ListItemAvatar>
         <Avatar
-          variant="square"
           sx={{ bgcolor: color }}
           ref={anchorRef}
           onClick={() => setColorSeletorOpen(true)}
-        />
+        >
+          {name.charAt(0).toUpperCase()}
+        </Avatar>
         <Popover
           open={isColorSelectorOpen}
           onClose={() => setColorSeletorOpen(false)}
@@ -78,3 +79,5 @@ function PlayerConfig({ player, onChange, onDelete }: PlayerConfigProps) {
 }
 
 export default PlayerConfig;
+
+

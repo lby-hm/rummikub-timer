@@ -12,7 +12,6 @@ function ColorSelector({ onSelect }: ColorSelectorProps) {
       {colors.map((color) => (
         <Grid key={color}>
           <Avatar
-            variant="square"
             sx={{
               bgcolor: color,
             }}

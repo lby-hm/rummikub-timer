@@ -48,7 +48,7 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
 
   return (
     <>
-      <Grid container spacing={2} direction={"column"}>
+      <Grid container spacing={2} direction={"column"} height={"100%"}>
         <Grid container spacing={2}>
           <Grid size="grow">
             <FormControl fullWidth>
@@ -91,7 +91,7 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
             </FormControl>
           </Grid>
         </Grid>
-        <Grid>
+        <Grid size="grow">
           <List>
             {config.Players.map((player, index) => (
               <ListItem key={player.Name}>
@@ -102,9 +102,9 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
                 ></PlayerConfig>
               </ListItem>
             ))}
-            <ListItem>
+            <ListItem onClick={handleAddPlayer}>
               <ListItemButton>
-                <IconButton onClick={handleAddPlayer}>
+                <IconButton>
                   <AddCircleOutlineIcon />
                 </IconButton>
               </ListItemButton>
