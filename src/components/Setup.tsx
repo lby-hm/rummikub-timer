@@ -102,13 +102,15 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
                 ></PlayerConfig>
               </ListItem>
             ))}
-            <ListItem onClick={handleAddPlayer}>
-              <ListItemButton>
-                <IconButton>
-                  <AddCircleOutlineIcon />
-                </IconButton>
-              </ListItemButton>
-            </ListItem>
+            {config.Players.length < 6 && (
+              <ListItem onClick={handleAddPlayer}>
+                <ListItemButton>
+                  <IconButton>
+                    <AddCircleOutlineIcon />
+                  </IconButton>
+                </ListItemButton>
+              </ListItem>
+            )}
           </List>
         </Grid>
         <Grid>
