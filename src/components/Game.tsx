@@ -77,7 +77,13 @@ function Game({ gameConfig }: GameProps) {
 
   return (
     <>
-      <Grid container direction="column" height={"100%"} onClick={restartTimer}>
+      <Grid
+        container
+        direction="column"
+        height={"100%"}
+        onClick={restartTimer}
+        sx={{ bgcolor: timer.totalSeconds === 0 ? "red" : "white" }}
+      >
         <Grid>
           <List>
             {players.map((player, index) => (
@@ -85,7 +91,9 @@ function Game({ gameConfig }: GameProps) {
                 key={player.Id}
                 sx={{
                   border:
-                    index === currentPlayerIndex ? "2px solid black" : "none",
+                    index === currentPlayerIndex
+                      ? `2px solid ${player.Color}`
+                      : "none",
                 }}
               >
                 <ListItemAvatar>

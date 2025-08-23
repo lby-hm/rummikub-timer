@@ -5,7 +5,17 @@ interface ColorSelectorProps {
 }
 
 function ColorSelector({ onSelect }: ColorSelectorProps) {
-  const colors = ["red", "blue", "green", "purple", "orange", "pink"];
+  const colors = [
+    "MediumTurquoise",
+    "MediumVioletRed",
+    "Violet",
+    "SteelBlue",
+    "YellowGreen",
+    "Tomato",
+    "Salmon",
+    "DarkOrange",
+    "LightPink",
+  ];
 
   return (
     <Grid container spacing={1}>

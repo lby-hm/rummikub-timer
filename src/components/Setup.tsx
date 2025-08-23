@@ -97,8 +97,8 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
               <ListItem key={player.Name}>
                 <PlayerConfig
                   player={player}
-                  onChange={handleChangePlayer.bind(null, player, index)}
-                  onDelete={handleDeletePlayer.bind(null, index)}
+                  onChange={(player) => handleChangePlayer(player, index)}
+                  onDelete={() => handleDeletePlayer(index)}
                 ></PlayerConfig>
               </ListItem>
             ))}

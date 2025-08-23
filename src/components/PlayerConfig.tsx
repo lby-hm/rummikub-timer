@@ -79,5 +79,3 @@ function PlayerConfig({ player, onChange, onDelete }: PlayerConfigProps) {
 }
 
 export default PlayerConfig;
-
-

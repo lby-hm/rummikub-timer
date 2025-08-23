@@ -21,15 +21,15 @@ function App() {
     TotalTime: 30 * 60,
     TurnTime: 60,
     Players: [
-      { Id: 1, Name: "爸爸", Color: "red" },
-      { Id: 2, Name: "妈妈", Color: "blue" },
-      { Id: 3, Name: "甜甜", Color: "green" },
+      { Id: 1, Name: "爸爸", Color: "MediumTurquoise" },
+      { Id: 2, Name: "妈妈", Color: "MediumVioletRed" },
+      { Id: 3, Name: "甜甜", Color: "Violet" },
     ],
   });
 
   const handleStartGame = (config: GameConfig) => {
-    setGameStartedFlag(true);
     setConfig(config);
+    setGameStartedFlag(true);
   };
 
   return (
