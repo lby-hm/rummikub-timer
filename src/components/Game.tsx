@@ -1,65 +1,117 @@
-import { Avatar, Box, Grid, Typography } from "@mui/material";
+import {
+  Avatar,
+  Box,
+  Grid,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Typography,
+} from "@mui/material";
 import type { GameConfig } from "../App";
 import { useTimer } from "react-timer-hook";
+import { useState } from "react";
 
 interface GameProps {
   gameConfig: GameConfig;
 }
 
-interface Player {
-  Id: number;
-  Name: string;
-  Color: string;
-  RemainTime: number;
-}
-
 function Game({ gameConfig }: GameProps) {
-  const players: Player[] = gameConfig.Players.map((player) => ({
-    Id: player.Id,
-    Name: player.Name,
-    Color: player.Color,
-    RemainTime: gameConfig.TotalTime,
-  }));
+  const totalTime = gameConfig.TotalTime;
+  const turnTime = gameConfig.TurnTime;
+  const players = gameConfig.Players;
+
+  const [currentPlayerIndex, setCurrentPlayerIndex] = useState(-1);
+
+  const [playerRemainTime, setPlayerRemainTime] = useState<number[]>(
+    players.map(() => totalTime)
+  );
 
   const timer = useTimer({
-    expiryTimestamp: new Date(Date.now() + gameConfig.TurnTime * 60 * 1000),
+    expiryTimestamp: new Date(Date.now() + turnTime * 1000),
     autoStart: false,
+    interval: 100,
+    onExpire: () => {
+      timer.pause();
+    },
   });
 
-  function restartTimer(){
-    timer.restart(new Date(Date.now() + gameConfig.TurnTime * 60 * 1000));
-    players.forEach((player) => {
-      player.RemainTime = gameConfig.TotalTime;
+  function restartTimer() {
+    setPlayerRemainTime((prevTimes) => {
+      const newTimes = [...prevTimes];
+      newTimes[currentPlayerIndex] = Math.max(
+        0,
+        newTimes[currentPlayerIndex] - (turnTime - timer.totalSeconds)
+      );
+      return newTimes;
     });
+
+    const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+    setCurrentPlayerIndex(nextPlayerIndex);
+
+    const nextTurnTime = Math.min(turnTime, playerRemainTime[nextPlayerIndex]);
+    timer.restart(new Date(Date.now() + nextTurnTime * 1000));
+  }
+
+  function getRealtimeRemainTime(index: number): number {
+    if (timer.isRunning && index === currentPlayerIndex) {
+      const currentTurnTime = Math.min(turnTime, playerRemainTime[index]);
+      return Math.max(
+        0,
+        playerRemainTime[index] - (currentTurnTime - timer.totalSeconds)
+      );
+    } else {
+      return playerRemainTime[index];
+    }
+  }
+
+  function formatTime(seconds: number): string {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    if (mins === 0) {
+      return `${secs}秒`;
+    } else {
+      return `${mins}分${secs}秒`;
+    }
   }
 
   return (
     <>
       <Grid container direction="column" height={"100%"} onClick={restartTimer}>
-        <Grid container spacing={1} direction="column">
-          {players.map((player) => (
-            <Grid container key={player.Id} spacing={1}>
-              <Grid>
-                <Avatar sx={{ bgcolor: player.Color }}>
-                  {player.Name.charAt(0).toUpperCase()}
-                </Avatar>
-              </Grid>
-              <Grid size="grow">
-                <Box sx={{ width: "100%", height: "100%", bgcolor: "gray" }}>
+        <Grid>
+          <List>
+            {players.map((player, index) => (
+              <ListItem
+                key={player.Id}
+                sx={{
+                  border:
+                    index === currentPlayerIndex ? "2px solid black" : "none",
+                }}
+              >
+                <ListItemAvatar>
+                  <Avatar sx={{ bgcolor: player.Color }}>
+                    {player.Name.charAt(0).toUpperCase()}
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText sx={{ bgcolor: "gray" }}>
                   <Box
                     sx={{
-                      width: `${(player.RemainTime / gameConfig.TotalTime) * 100} %`,
-                      height: "100%",
                       bgcolor: player.Color,
+                      width: `${(getRealtimeRemainTime(index) / totalTime) * 100}%`,
+                      height: "100%",
                     }}
-                  ></Box>
-                </Box>
-              </Grid>
-            </Grid>
-          ))}
+                  >
+                    <Typography sx={{ color: "white" }} padding={1}>
+                      {formatTime(getRealtimeRemainTime(index))}
+                    </Typography>
+                  </Box>
+                </ListItemText>
+              </ListItem>
+            ))}
+          </List>
         </Grid>
         <Grid size="grow" textAlign="center" alignContent="center">
-          <Typography fontSize="300px">{timer.seconds}</Typography>
+          <Typography fontSize="200px">{timer.totalSeconds}</Typography>
         </Grid>
       </Grid>
     </>

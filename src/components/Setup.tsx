@@ -64,9 +64,9 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
                   });
                 }}
               >
-                <MenuItem value={10}>10分钟</MenuItem>
-                <MenuItem value={20}>20分钟</MenuItem>
-                <MenuItem value={30}>30分钟</MenuItem>
+                <MenuItem value={10 * 60}>10分钟</MenuItem>
+                <MenuItem value={20 * 60}>20分钟</MenuItem>
+                <MenuItem value={30 * 60}>30分钟</MenuItem>
               </Select>
             </FormControl>
           </Grid>
@@ -84,9 +84,9 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
                   });
                 }}
               >
-                <MenuItem value={0.5}>30秒</MenuItem>
-                <MenuItem value={1}>1分钟</MenuItem>
-                <MenuItem value={2}>2分钟</MenuItem>
+                <MenuItem value={30}>30秒</MenuItem>
+                <MenuItem value={60}>1分钟</MenuItem>
+                <MenuItem value={120}>2分钟</MenuItem>
               </Select>
             </FormControl>
           </Grid>

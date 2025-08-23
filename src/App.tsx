@@ -18,8 +18,8 @@ export interface Player {
 function App() {
   const [isGameStarted, setGameStartedFlag] = useState(false);
   const [config, setConfig] = useState<GameConfig>({
-    TotalTime: 30,
-    TurnTime: 1,
+    TotalTime: 30 * 60,
+    TurnTime: 60,
     Players: [
       { Id: 1, Name: "爸爸", Color: "red" },
       { Id: 2, Name: "妈妈", Color: "blue" },
