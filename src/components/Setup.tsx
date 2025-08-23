@@ -94,7 +94,7 @@ function Setup({ gameConfig, onStartGame }: SetupProps) {
         <Grid size="grow">
           <List>
             {config.Players.map((player, index) => (
-              <ListItem key={player.Name}>
+              <ListItem key={player.Id}>
                 <PlayerConfig
                   player={player}
                   onChange={(player) => handleChangePlayer(player, index)}

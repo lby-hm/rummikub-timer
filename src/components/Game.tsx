@@ -120,7 +120,7 @@ function Game({ gameConfig }: GameProps) {
         </Grid>
         <Grid size="grow" textAlign="center" alignContent="center">
           <Typography
-            fontSize="200px"
+            fontSize="160px"
             color={
               currentPlayerIndex >= 0
                 ? players[currentPlayerIndex].Color
