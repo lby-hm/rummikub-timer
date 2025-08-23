@@ -119,7 +119,16 @@ function Game({ gameConfig }: GameProps) {
           </List>
         </Grid>
         <Grid size="grow" textAlign="center" alignContent="center">
-          <Typography fontSize="200px">{timer.totalSeconds}</Typography>
+          <Typography
+            fontSize="200px"
+            color={
+              currentPlayerIndex >= 0
+                ? players[currentPlayerIndex].Color
+                : "black"
+            }
+          >
+            {timer.totalSeconds}
+          </Typography>
         </Grid>
       </Grid>
     </>
