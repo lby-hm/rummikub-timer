@@ -11,6 +11,7 @@ import {
 import type { GameConfig } from "../App";
 import { useTimer } from "react-timer-hook";
 import { useState } from "react";
+import clickSound from "../assets/sound/click.mp3";
 
 interface GameProps {
   gameConfig: GameConfig;
@@ -37,6 +38,9 @@ function Game({ gameConfig }: GameProps) {
   });
 
   function restartTimer() {
+    const audio = new Audio(clickSound);
+    audio.play();
+
     setPlayerRemainTime((prevTimes) => {
       const newTimes = [...prevTimes];
       newTimes[currentPlayerIndex] = Math.max(
