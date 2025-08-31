@@ -10,13 +10,13 @@ import {
 } from "@mui/material";
 import type { GameConfig } from "../App";
 import { useTimer } from "react-timer-hook";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import clickSound from "../assets/sound/click.mp3";
 
 interface GameProps {
   gameConfig: GameConfig;
 }
-
+const audioCache: Record<string, HTMLAudioElement> = {};
 function Game({ gameConfig }: GameProps) {
   const totalTime = gameConfig.TotalTime;
   const turnTime = gameConfig.TurnTime;
@@ -28,6 +28,13 @@ function Game({ gameConfig }: GameProps) {
     players.map(() => totalTime)
   );
 
+  useEffect(() => {
+    if (!audioCache.clickSound) {
+      audioCache.clickSound = new Audio(clickSound);
+      audioCache.clickSound.load();
+    }
+  }, []);
+
   const timer = useTimer({
     expiryTimestamp: new Date(Date.now() + turnTime * 1000),
     autoStart: false,
@@ -38,8 +45,15 @@ function Game({ gameConfig }: GameProps) {
   });
 
   function restartTimer() {
-    const audio = new Audio(clickSound);
-    audio.play();
+    if (audioCache.clickSound) {
+      audioCache.clickSound.currentTime = 0; // Reset to start
+      audioCache.clickSound.play().catch((error) => {
+        console.error("Audio playback failed:", error);
+      });
+    }
+
+    // const audio = new Audio(clickSound);
+    // audio.play();
 
     setPlayerRemainTime((prevTimes) => {
       const newTimes = [...prevTimes];
